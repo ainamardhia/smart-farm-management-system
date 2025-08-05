@@ -1,3 +1,273 @@
+🏗️ System Architecture
+
+Architecture Overview
+
+The Smart Farm Management System is built using a modern microservices architecture designed for real-time IoT data processing, scalable farm management, and Malaysian agricultural operations. The system consists of three main layers working together to provide comprehensive farm monitoring and control.
+
+System Components Diagram
+
+┌─────────────────────────────────────────────────────────────────┐
+│ USER INTERFACE LAYER │
+│ │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────┐│
+│ │ Dashboard │ │ Plot │ │ Sensor │ │ Farm ││
+│ │ Component │ │ Management │ │ Monitoring │ │ Map ││
+│ │ 📊 │ │ 🌱 │ │ 📡 │ │ 🗺️ ││
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────┘│
+│ │
+│ React.js Frontend (Port 3000) │
+└─────────────────────────────────────────────────────────────────┘
+│
+HTTP/WebSocket API
+│
+┌─────────────────────────────────────────────────────────────────┐
+│ BACKEND SERVICES LAYER │
+│ │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────┐│
+│ │ FastAPI │ │ WebSocket │ │ Background │ │ Alert ││
+│ │ REST APIs │ │ Server │ │ Tasks │ │ System ││
+│ │ 🔌 │ │ 📡 │ │ ⚙️ │ │ 🚨 ││
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────┘│
+│ │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ │
+│ │ Farm │ │ Data │ │ Live Data │ │
+│ │ Service │ │ Simulator │ │ Service │ │
+│ │ 🌾 │ │ 🎲 │ │ 📊 │ │
+│ └─────────────┘ └─────────────┘ └─────────────┘ │
+│ │
+│ Python Backend (Port 8000) │
+└─────────────────────────────────────────────────────────────────┘
+│
+File System I/O
+│
+┌─────────────────────────────────────────────────────────────────┐
+│ DATA STORAGE LAYER │
+│ │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────┐│
+│ │ Farm │ │ Sensor │ │ Weather │ │ Alerts ││
+│ │ Data │ │ Data │ │ Forecast │ │ Data ││
+│ │ 📄 │ │ 📄 │ │ 📄 │ │ 📄 ││
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────┘│
+│ │
+│ JSON File Storage System │
+└─────────────────────────────────────────────────────────────────┘
+│
+Malaysian Data Simulation
+│
+┌─────────────────────────────────────────────────────────────────┐
+│ SIMULATION ENGINE LAYER │
+│ │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────┐│
+│ │ Weather │ │ Crop │ │ Sensor │ │Equipment││
+│ │ Patterns │ │ Growth │ │ Network │ │Monitor ││
+│ │ 🌦️ │ │ 🌱 │ │ 📡 │ │ 🔧 ││
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────┘│
+│ │
+│ Malaysian Agricultural Simulation │
+└─────────────────────────────────────────────────────────────────┘
+
+Component Interaction Flow
+
+1. Data Flow Pipeline
+
+Data Generation → Processing → Storage → API → Frontend Display
+↓ ↓ ↓ ↓ ↓
+Simulation → Background → JSON Files → HTTP → React Components
+Tasks WebSocket
+
+2. Real-time Communication
+
+Frontend ←─ WebSocket ─→ Backend ←─ Timer ─→ Data Simulator
+│ │ │
+└── User Actions ──→ REST API ──→ Data Updates ──┘
+
+3. System Interaction Sequence
+
+User Interface
+│
+├─ Dashboard Request ─→ Farm Service ─→ JSON Data ─→ Response
+│
+├─ Plot Control ─→ API Endpoint ─→ Data Update ─→ WebSocket Broadcast
+│
+├─ Live Data ←─ WebSocket ←─ Background Task ←─ Data Simulator
+│
+└─ Map View ─→ Location API ─→ Plot Coordinates ─→ Leaflet Map
+
+Technical Architecture Details
+
+Frontend Architecture (React.js)
+
+React App (localhost:3000)
+├── App.js (Main container)
+├── Components/
+│ ├── Dashboard.js (Farm overview)
+│ ├── PlotManagement.js (Plot controls)
+│ ├── SensorMonitoring.js (Live data)
+│ └── FarmMap.js (Interactive map)
+├── Services/
+│ ├── api.js (HTTP client)
+│ └── websocket.js (Real-time client)
+└── Styles/
+└── App.css (Malaysian theme)
+
+Key Features:
+
+State Management: React hooks for component state
+API Integration: Axios for HTTP requests
+Real-time Updates: WebSocket connections
+Interactive Maps: Leaflet integration
+Data Visualization: Recharts for analytics
+
+Backend Architecture (FastAPI)
+
+FastAPI Server (localhost:8000)
+├── main.py (Application entry)
+├── Services/
+│ ├── farm_service.py (CRUD operations)
+│ ├── data_simulator.py (Malaysian data)
+│ └── live_data_service.py (Real-time)
+├── Models/
+│ ├── farm_models.py (Data structures)
+│ └── sensor_models.py (IoT models)
+└── Data/
+├── farm_data.json (Main data)
+├── sensor_data.json (Readings)
+└── alerts.json (Notifications)
+
+Key Features:
+
+REST API: CRUD operations for all entities
+WebSocket Server: Real-time data streaming
+Background Tasks: Automated data generation
+Data Validation: Pydantic models
+Error Handling: Comprehensive exception management
+
+Data Simulation Engine
+
+Malaysian Agriculture Simulator
+├── Weather Simulation
+│ ├── Dry Season (Jun-Sep)
+│ ├── Wet Season (Oct-Mar)
+│ └── Transition (Apr-May)
+├── Crop Management
+│ ├── Rice (MR220, MR219)
+│ ├── Palm Oil (Tenera, Dura)
+│ ├── Rubber (RRIM varieties)
+│ └── Tropical Fruits
+├── IoT Sensor Network
+│ ├── Environmental sensors
+│ ├── Soil monitoring
+│ └── Equipment tracking
+└── Alert System
+├── Maintenance alerts
+├── Weather warnings
+└── Equipment failures
+
+Data Architecture
+
+Information Flow
+
+Real-World Data Simulation
+↓
+JSON File Storage
+↓
+Service Layer Processing
+↓
+API Response Generation
+↓
+Frontend State Update
+↓
+User Interface Display
+
+Database Schema (JSON-based)
+
+{
+"farm": {
+"plots": ["plot_1", "plot_2"],
+"equipment": ["equipment_1"],
+"sensors": ["sensor_1", "sensor_2"]
+},
+"sensor_readings": {
+"timestamp": "2024-01-01T00:00:00",
+"sensor_id": "sensor_1",
+"temperature": 28.5,
+"humidity": 75.2,
+"soil_moisture": 82.1
+}
+}
+
+Communication Protocols
+
+REST API Endpoints
+
+GET /api/farm → Farm information
+GET /api/plots → All farm plots
+PUT /api/plots/{id}/status → Update plot status
+GET /api/sensors/live → Live sensor data
+POST /api/alerts → Create alerts
+
+WebSocket Events
+
+live_update → Real-time sensor data
+plot_update → Plot status changes  
+irrigation_update → Irrigation toggles
+weather_update → Weather forecasts
+new_alert → System alerts
+
+Scalability Design
+
+Current Architecture (Development)
+
+Single Instance: One backend server
+File Storage: JSON-based persistence
+In-Memory: WebSocket connections
+Local Simulation: Background data generation
+
+Production Ready Architecture
+
+Load Balancer
+│
+┌────┴────┐
+│ Frontend │ (React.js)
+│ Servers │
+└─────────┘
+│
+┌────┴────┐
+│ API │ (FastAPI)
+│ Gateway │
+└─────────┘
+│
+┌────┴────┐ ┌─────────┐ ┌─────────┐
+│Backend │────│Database │────│Message │
+│Services │ │Cluster │ │Queue │
+└─────────┘ └─────────┘ └─────────┘
+│
+┌────┴────┐
+│ IoT │
+│ Gateway │ (Real Sensors)
+└─────────┘
+
+Deployment Architecture
+
+Development Environment
+
+Local Machine
+├── Backend: python main.py (Port 8000)
+├── Frontend: npm start (Port 3000)
+└── Data: JSON files in /backend/data/
+
+Production Environment
+
+Cloud Infrastructure
+├── Application Load Balancer
+├── Container Services (Docker)
+├── Managed Database (PostgreSQL)
+├── Message Queue (Redis)
+├── IoT Hub (Device management)
+└── CDN (Static assets)
+
+This architecture provides a robust foundation for Malaysian agricultural management while maintaining simplicity for development and flexibility for future IoT integration and scaling. 🌾🏗️
+
 Smart Farm Management System 🌾
 
 A comprehensive IoT-enabled farm management system designed specifically for Malaysian agricultural operations using European metrics and real-time data simulation.
