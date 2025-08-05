@@ -1,0 +1,49 @@
+{
+  "id": "farm-001",
+  "name": "Kedah Smart Rice Farm",
+  "location": "Kedah, Malaysia",
+  "owner": "Malaysian Agricultural Cooperative",
+  "total_area": 12.5,
+  "plots": [
+    {
+      "id": "plot-001",
+      "name": "Plot 1 - Rice",
+      "location": {
+        "lat": 6.1254,
+        "lng": 100.3673
+      },
+      "area": 2.5,
+      "status": "maintenance",
+      "crop": {
+        "id": "crop-001",
+        "type": "rice",
+        "variety": "Rice Variety 1",
+        "planted_date": "2024-01-15T00:00:00",
+        "expected_harvest": "2024-04-15T00:00:00",
+        "growth_stage": "flowering",
+        "yield_estimate": 5500
+      },
+      "equipment": [
+        {
+          "id": "eq-001",
+          "name": "Irrigation System 1",
+          "type": "irrigation",
+          "status": "operational",
+          "location": {
+            "lat": 6.1255,
+            "lng": 100.3674
+          },
+          "last_maintenance": "2024-01-01T00:00:00",
+          "operational_hours": 1250.5
+        }
+      ],
+      "sensors": [
+        "sensor-001",
+        "sensor-002"
+      ],
+      "irrigation_status": true,
+      "last_updated": "2025-08-05T13:29:27.414776"
+    }
+  ],
+  "established_date": "2020-01-15T00:00:00"
+}
